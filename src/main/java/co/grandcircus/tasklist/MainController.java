@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 
+
 @Controller
 public class MainController {
 
@@ -12,6 +13,12 @@ public class MainController {
 	@RequestMapping("/")
 	public ModelAndView home() {
 	ModelAndView mav = new ModelAndView("taskIndex");
+	return mav;
+	}
+
+	@RequestMapping("/register")
+	public ModelAndView showRegistration() {
+	ModelAndView mav = new ModelAndView("register");
 	return mav;
 	}
 	

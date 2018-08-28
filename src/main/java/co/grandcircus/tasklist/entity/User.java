@@ -25,6 +25,11 @@ public class User {
 		
 	}
 
+	public User(String email, String password) {
+		super();
+		this.email = email;
+		this.password = password;	}
+
 	public Long getId() {
 		return id;
 	}

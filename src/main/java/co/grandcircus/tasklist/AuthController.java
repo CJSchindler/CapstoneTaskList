@@ -24,6 +24,17 @@ public class AuthController {
 
 	@RequestMapping("/login-form")
 	public ModelAndView showLoginForm() {
+	ModelAndView mav = new ModelAndView("login-form"); //offers choice of login or register
+	return mav;
+	}
+	
+	// to create a new user (register)
+	@RequestMapping("/submit-registration")
+	public ModelAndView submitReg(
+			@RequestParam("email") String email,
+			@RequestParam("password") String password) {
+	User user = new User(email, password);
+	userDao.create(user);
 	ModelAndView mav = new ModelAndView("login-form");
 	return mav;
 	}
