@@ -1,6 +1,5 @@
-package co.grandcircus.entity;
+package co.grandcircus.tasklist.entity;
 
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,14 +13,12 @@ public class User {
 	private Long id;
 	private String email;
 	private String password;
-	private List<Task> tasks;
 	
-	public User(Long id, String email, String password, List<Task> tasks) {
+	public User(Long id, String email, String password) {
 		super();
 		this.id = id;
 		this.email = email;
 		this.password = password;
-		this.tasks = tasks;
 	}
 	
 	public User () {
@@ -51,15 +48,5 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-	public List<Task> getTasks() {
-		return tasks;
-	}
-
-	public void setTasks(List<Task> tasks) {
-		this.tasks = tasks;
-	}
-	
-	
 	
 }

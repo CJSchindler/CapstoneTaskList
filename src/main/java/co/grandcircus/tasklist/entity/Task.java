@@ -1,15 +1,18 @@
-package co.grandcircus.entity;
+package co.grandcircus.tasklist.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Task {
 
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
+	// annotate many-to-one relationships
+		@ManyToOne
 	private User user;
 	private String description;
 	private String dueDate;
@@ -34,14 +37,6 @@ public class Task {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
 	}
 
 	public String getDescription() {
