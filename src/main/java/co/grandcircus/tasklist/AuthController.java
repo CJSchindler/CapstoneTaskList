@@ -19,9 +19,11 @@ public class AuthController {
 
 	@Autowired
 	UserDao userDao;
+	
 //	@Autowired
 //	GithubService githubService;
 
+	//Show log in form
 	@RequestMapping("/login-form")
 	public ModelAndView showLoginForm() {
 	ModelAndView mav = new ModelAndView("login-form"); //offers choice of login or register
@@ -29,34 +31,41 @@ public class AuthController {
 	}
 	
 	// to create a new user (register)
-	@RequestMapping("/submit-registration")
+	@PostMapping("/submit-registration")
 	public ModelAndView submitReg(
 			@RequestParam("email") String email,
-			@RequestParam("password") String password) {
-	User user = new User(email, password);
-	userDao.create(user);
-	ModelAndView mav = new ModelAndView("login-form");
-	return mav;
+			@RequestParam("password") String password,
+			HttpSession session,
+			RedirectAttributes redir) {
+		User user = new User(email, password);
+		userDao.save(user);
+		session.setAttribute("user", user);
+		redir.addFlashAttribute("message", "Registered! Please log in: ");
+		ModelAndView mav = new ModelAndView("redirect:/login-form");
+		return mav;
 	}
 	
+	//existing user login
 	@PostMapping("/submit-login")
-//	// get the username and password from the form when it's submitted.
 	public ModelAndView submitLoginForm(
 			@RequestParam("email") String email, 
 			@RequestParam("password") String password,
-			HttpSession session, RedirectAttributes redirect) {
-//		// Find the matching user.
+			HttpSession session, RedirectAttributes redir) {
+		// Find the matching user.
 		User user = userDao.findByEmail(email);
 		if (user == null || !password.equals(user.getPassword())) {
-//			// If the user or password don't match, display an error message.
-			ModelAndView mav = new ModelAndView("/taskIndex"); //go back to the login page
+			// If the user or password don't match, display an error message.
+			ModelAndView mav = new ModelAndView("/taskIndex"); //go back to the first page
 			mav.addObject("message", "Incorrect username or password. Please try again.");
-			
-			}
+			return mav;
+		}
 		// if they do match, add user to session
 		session.setAttribute("user", user);
-		return new ModelAndView("redirect:/");
+		//tell user they are logged in
+		redir.addFlashAttribute("message", "You are now logged in.");
+		return new ModelAndView("redirect:tasks/");
 	}
+	
 }
 //		// A flash message will only show on the very next page. Then it will go away.
 //		// It is useful with redirects since you can't add attributes to the mav.

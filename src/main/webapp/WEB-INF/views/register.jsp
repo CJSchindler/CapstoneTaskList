@@ -11,7 +11,7 @@
 <body>
 <main class="container">
 <h2>Registration Page</h2>
-<form class="form-group" action="submit-add-user" method="post">
+<form class="form-group" action="submit-registration" method="post">
 
     <p>
         Email: <input type="email" name="email"/>

@@ -38,7 +38,11 @@ public class Task {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
+	
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
 	public String getDescription() {
 		return description;
 	}
@@ -62,7 +66,7 @@ public class Task {
 	public void setComplete(Boolean complete) {
 		this.complete = complete;
 	}
-	
+
 	
 	
 	
