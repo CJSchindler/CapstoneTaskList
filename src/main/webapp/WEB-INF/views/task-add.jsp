@@ -24,7 +24,7 @@
 			</div>
 			<div class="form-group">
 			    <label for="quantity">Due Date</label>
-			    <input class="form-control" id="price" name="price" value="${task.dueDate}" required>
+			    <input class="form-control" id="dueDate" name="dueDate" value="${task.dueDate}" required>
 			</div>
 			<button type="submit" class="btn btn-primary">Submit</button>
 			<a href="/submit-add" class="btn btn-link">Cancel</a>

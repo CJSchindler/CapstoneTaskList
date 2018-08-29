@@ -1,5 +1,6 @@
 package co.grandcircus.tasklist;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,16 +12,22 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import co.grandcircus.tasklist.entity.Task;
 import co.grandcircus.tasklist.entity.User;
 
+import co.grandcircus.tasklist.dao.TaskDao;
+import co.grandcircus.tasklist.dao.UserDao;
+
 @Controller
 public class TaskController {
+	
+	@Autowired
+	TaskDao taskDao;
 
 	@RequestMapping("/tasks")
 	public ModelAndView listTasks(@SessionAttribute(name="user", required=false) User user, RedirectAttributes redir) {
-		if (user == null) {
-			// if not, send them back to the login page with a message.
-			redir.addFlashAttribute("message", "Wait! Please log in.");
-			return new ModelAndView("redirect:/login");
-		}
+//		if (user == null) {
+//			// if not, send them back to the login page with a message.
+//			redir.addFlashAttribute("message", "Wait! Please log in.");
+//			return new ModelAndView("redirect:/login");
+//		}
 		
 		ModelAndView mav = new ModelAndView("task-list");
 		mav.addObject("tasks", taskDao.findByUser(user));
@@ -41,11 +48,11 @@ public class TaskController {
 
 		@PostMapping("/submit-task")
 		public ModelAndView submitAddTask(Task task, @SessionAttribute(name="user", required=false) User user, RedirectAttributes redir) {
-			if (user == null) {
-				// if not, send them back to the login page with a message.
-				redir.addFlashAttribute("message", "Wait! Please log in.");
-				return new ModelAndView("redirect:/login");
-			}
+//			if (user == null) {
+//				// if not, send them back to the login page with a message.
+//				redir.addFlashAttribute("message", "Wait! Please log in.");
+//				return new ModelAndView("redirect:/login");
+//			}
 			
 			task.setUser(user);
 			taskDao.save(task);
